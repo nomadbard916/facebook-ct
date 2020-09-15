@@ -1,5 +1,7 @@
 {
     "files.exclude": {
-        "vendor": true
-    }
+        "vendor": false
+    },
+    "i18n-ally.localesPaths": "resources/lang",
+    "workspace.isHidden": false
 }
