@@ -3,5 +3,6 @@
         "vendor": false
     },
     "i18n-ally.localesPaths": "resources/lang",
-    "workspace.isHidden": false
+    "workspace.isHidden": false,
+    "standard.engine": "semistandard"
 }
