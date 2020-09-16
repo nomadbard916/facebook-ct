@@ -2,7 +2,8 @@
 
 namespace Tests\Feature;
 
-use PHPUnit\Framework\TestCase;
+use App\Post;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostToTimelineTest extends TestCase
@@ -11,7 +12,7 @@ class PostToTimelineTest extends TestCase
     /** @test */
     public function a_user_can_post_a_text_post()
     {
-        $this->actingAs(factory(\App\User::class)->create(), 'api');
+        $this->actingAs($user = factory(\App\User::class)->create(), 'api');
 
         $response = $this->post('/api/posts', [
             'data' => [
@@ -22,8 +23,25 @@ class PostToTimelineTest extends TestCase
             ]
         ]);
 
-        $post = \App\Post::first();
+        $post = Post::first();
 
-        $response->assertStatus(201);
+        $this->assertEquals($user->id, $post->user_id);
+        $this->assertEquals('Testing Body', $post->body);
+        $this->assertCount(1, Post::all());
+
+        $response->assertStatus(201)
+            ->assertJson([
+                'data' => [
+                    'type' => 'posts',
+                    'post_id' > $post->id,
+                    'attributes' => [
+                        'body' => $post->body,
+
+                    ]
+                ],
+                'links' => [
+                    'self' => url('/posts/' . $post->id)
+                ]
+            ]);
     }
 }
