@@ -14,8 +14,8 @@ const tailwindcss = require('tailwindcss');
 // mix.browserSync('facebook-ct.dev');
 
 mix.browserSync({
-  proxy: 'facebook-ct.dev',
-  https: true
+  proxy: 'facebook-ct.dev'
+  //   https: true
 });
 
 mix.js('resources/js/app.js', 'public/js')
