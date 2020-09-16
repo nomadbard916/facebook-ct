@@ -2128,6 +2128,20 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     NewPost: _components_NewPost__WEBPACK_IMPORTED_MODULE_0__["default"],
     Post: _components_Post__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      posts: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get("/api/posts").then(function (res) {
+      _this.posts = res.data;
+    })["catch"](function (error) {
+      console.log("Unable to fetch posts");
+    });
   }
 });
 
